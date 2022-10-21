@@ -1,3 +1,7 @@
+# https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&outputsize=full&apikey=H65SRD1M6KH9R56U
+
+# https://velog.io/@sylagape1231/%ED%94%84%EB%A1%A0%ED%8A%B8%EC%97%94%EB%93%9C-%EC%B7%A8%EC%A4%80%EC%83%9D%EC%9D%84-%EC%9C%84%ED%95%9C-%EA%B2%8C%EC%8B%9C%EA%B8%80%EC%9E%90%EB%A3%8C-%EB%AA%A8%EC%9D%8C
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
