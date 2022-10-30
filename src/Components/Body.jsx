@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useEffect, useState } from "react";
 import styled from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -7,39 +7,34 @@ import { Pagination, Navigation, Autoplay } from "swiper";
 import SwiperContent from "./SwiperContent";
 import PieChartComponent from "./PieChartComponent";
 import TableComponent from "./TableComponent";
+import LineChartComponent from "./LineChartComponent";
+import AllWehter from "../Data/AllWether";
+import getStockObject from "../Utils/getStockObject";
 function Body() {
-  const languageData = [
-    {
-      id: "python",
-      label: "python",
-      value: 285,
-      color: "hsl(170, 70%, 50%)",
-    },
-    {
-      id: "stylus",
-      label: "stylus",
-      value: 401,
-      color: "hsl(243, 70%, 50%)",
-    },
-    {
-      id: "c",
-      label: "c",
-      value: 541,
-      color: "hsl(173, 70%, 50%)",
-    },
-    {
-      id: "ruby",
-      label: "ruby",
-      value: 563,
-      color: "hsl(194, 70%, 50%)",
-    },
-    {
-      id: "erlang",
-      label: "erlang",
-      value: 27,
-      color: "hsl(132, 70%, 50%)",
-    },
-  ];
+  const [SPYDailyValue, setSPYDailyValue] = useState(null);
+  const [XLEDailyValue, setXLEDailyValue] = useState(null);
+  const [TotalStockValue, setTotalStockValue] = useState(null);
+  const [error, setError] = useState(null);
+  const [isStockValue, setIsStockValue] = useState(false);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // const responseXLE = await axios.get(
+        //   "https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=XLE&outputsize=full&apikey=H65SRD1M6KH9R56U"
+        // );
+        let tStockValue = [];
+        tStockValue.push(await getStockObject("SPY"));
+        tStockValue.push(await getStockObject("TQQQ"));
+        tStockValue.push(await getStockObject("XLE"));
+        setTotalStockValue(tStockValue);
+      } catch (e) {
+        setError(e);
+      }
+    };
+    fetchData();
+    setIsStockValue(true);
+  }, []);
+
   return (
     <Container>
       <Swiper
@@ -74,10 +69,15 @@ function Body() {
         <SwiperSlide>Slide 7</SwiperSlide>
       </Swiper>
 
-      <PieChartComponent data={languageData}></PieChartComponent>
-      <TableComponent data={languageData}></TableComponent>
-      <TableComponent data={languageData}></TableComponent>
-      <TableComponent data={languageData}></TableComponent>
+      <PieChartComponent data={AllWehter}></PieChartComponent>
+      {TotalStockValue ? (
+        <LineChartComponent data={TotalStockValue}></LineChartComponent>
+      ) : (
+        <p>Loading...</p>
+      )}
+      <TableComponent data={AllWehter}></TableComponent>
+      {/* <TableComponent data={languageData}></TableComponent>
+      <TableComponent data={languageData}></TableComponent> */}
     </Container>
   );
 }

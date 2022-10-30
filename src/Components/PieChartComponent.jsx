@@ -20,6 +20,7 @@ function PieChartComponent(props) {
         arcLinkLabelsTextColor="#333333"
         arcLinkLabelsThickness={2}
         arcLinkLabelsColor={{ from: "color" }}
+        enableArcLabels={false}
         arcLabelsSkipAngle={10}
         arcLabelsTextColor={{
           from: "color",
@@ -48,31 +49,31 @@ function PieChartComponent(props) {
         fill={[
           {
             match: {
-              id: "ruby",
+              id: "TLT",
             },
             id: "dots",
           },
           {
             match: {
-              id: "c",
+              id: "SPY",
             },
-            id: "dots",
+            id: "lines",
           },
           {
             match: {
-              id: "go",
+              id: "IEF",
             },
-            id: "dots",
+            id: "lines",
           },
           {
             match: {
-              id: "python",
+              id: "GLD",
             },
-            id: "dots",
+            id: "lines",
           },
           {
             match: {
-              id: "scala",
+              id: "DBC",
             },
             id: "lines",
           },
