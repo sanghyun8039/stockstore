@@ -9,24 +9,22 @@ import PieChartComponent from "./PieChartComponent";
 import TableComponent from "./TableComponent";
 import LineChartComponent from "./LineChartComponent";
 import AllWehter from "../Data/AllWether";
-import getStockObject from "../Utils/getStockObject";
+import getStockObject_KIS from "../Utils/getStockObject_KIS";
+import getAssetAllocationStrategy from "../Utils/getAssetAllocationStrategy";
 function Body() {
-  const [SPYDailyValue, setSPYDailyValue] = useState(null);
-  const [XLEDailyValue, setXLEDailyValue] = useState(null);
   const [TotalStockValue, setTotalStockValue] = useState(null);
   const [error, setError] = useState(null);
   const [isStockValue, setIsStockValue] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // const responseXLE = await axios.get(
-        //   "https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=XLE&outputsize=full&apikey=H65SRD1M6KH9R56U"
-        // );
         let tStockValue = [];
-        tStockValue.push(await getStockObject("SPY"));
-        tStockValue.push(await getStockObject("TQQQ"));
-        tStockValue.push(await getStockObject("XLE"));
+        tStockValue.push(await getStockObject_KIS("AMS", "GLD"));
+        tStockValue.push(await getStockObject_KIS("AMS", "SPY"));
+        tStockValue.push(await getStockObject_KIS("AMS", "DBC"));
         setTotalStockValue(tStockValue);
+
+        await getAssetAllocationStrategy("AllWether");
       } catch (e) {
         setError(e);
       }
